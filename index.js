@@ -1,13 +1,20 @@
 const main = document.querySelector("main");
+renderTodoList()
 
-let todolist = document.createElement('section');
-todolist.classList.add('todolist');
+function renderTodoList() {
+    let todolist = document.createElement('section');
+    todolist.classList.add('todolist');
+    let title = document.createElement('h1');
+    title.innerHTML = "my todolist";
+    todolist.appendChild(title);
 
-// todolist.innerHTML = "mytodolist";
-let title = document.createElement('h1');
-title.innerHTML = "my todolist";
-todolist.appendChild(title);
+    renderTask(todolist);
+    renderTask(todolist);
+    renderTask(todolist);
+    main.appendChild(todolist);
+}
 
+function renderTask(todolist) {
     let task = document.createElement('div');
     task.classList.add('task');
         let time = document.createElement('div');
@@ -46,4 +53,4 @@ todolist.appendChild(title);
         task.appendChild(content);
         task.appendChild(deleteDiv);
     todolist.appendChild(task);
-main.appendChild(todolist);
+}
