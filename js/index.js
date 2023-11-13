@@ -1,69 +1,69 @@
-// import 'task.js'; // Importing script1.js
-// require('./js/task.js');
-// const Task = require('task.js');
-import(Task);
+import {Task} from './task.js';
+import {addElement} from './lib.js';
 
 const main = document.querySelector("main");
 renderTodoList()
-// addElement(main, 'section', {id: 'todolist', class: 'class1', content: 'hello'});
-
-function addElement(parent, type = 'div', options = {}) {
-    let element = document.createElement(type);
-    for(let key in options) {
-        // console.log(key + ': ' + options[key]);
-        if(key === 'id') {
-            element.id = options[key];
-        } else if(key === 'class') {
-            element.classList.add(options[key]);
-        } else if(key === 'content') {
-            element.innerHTML = options[key];
-        }
-    }
-
-    if(typeof(parent) === "string" && parent !== "") {
-        parent = document.querySelector(parent);
-    } else if(parent === "") {
-        return element;
-    }
-    parent.appendChild(element);
-    // console.log(element);
-}
-
 
 function renderTodoList() {
     let todolist = document.createElement('section');
     todolist.classList.add('todolist');
     let title = document.createElement('h1');
-    title.innerHTML = "my todolist";
+    title.innerHTML = "My Todolist";
+
+    let tasks = document.createElement('div');
+    tasks.classList.add('tasks');
+
     todolist.appendChild(title);
+    todolist.appendChild(tasks);
 
+    // let currentDate = new Date();
+    // let optionsDate = { year: 'numeric', month: 'numeric', day: 'numeric' };
+    // let optionsTime = { hour: '2-digit', minute: '2-digit', hour12: false };
+    // let formattedDate = currentDate.toLocaleDateString('fr-FR', optionsDate);
+    // let formattedTime = currentDate.toLocaleTimeString('fr-FR', optionsTime);
+    // let task = new Task(null, formattedDate, formattedTime, "hello", true);
+    // let task = new Task(null, '13/11/2023', '15:54', "hello", true);
 
-    renderTask(todolist);
+    let taskList = [
+        new Task(null, '13/11/2023', '15:54', "hello", true),
+        new Task(null, '13/11/2023', '15:54', "hello", true)
+    ];
+
+    for(let task of taskList) {
+        renderTask(tasks, task);
+    }
 
     main.appendChild(todolist);
-    // main.appendChild(todolist, task);
 }
 
-function renderTask(todolist) {
-    let task = document.createElement('div');
-    task.classList.add('task');
+function renderTask(tasks, task) {
+    let taskElement = document.createElement('div');
+    taskElement.classList.add('task');
+
         let time = document.createElement('div');
         time.classList.add('time');
-            let dateInput = document.createElement('input');
-            let timeInput = document.createElement('input');
-            dateInput.type = "date";
-            timeInput.type = "time";
+            // let dateInput = document.createElement('input');
+            // let timeInput = document.createElement('input');
+            // dateInput.type = "date";
+            // timeInput.type = "time";
+
+            let dateInput = document.createElement('div');
+            let timeInput = document.createElement('div');
+
+            dateInput.innerHTML = task.date;
+            timeInput.innerHTML = task.time;
             time.appendChild(dateInput);
             time.appendChild(timeInput);
-        task.appendChild(time);
+        
 
         let content = document.createElement('div');
             content.id = "content";
             let checkbox = document.createElement('input');
             checkbox.type = "checkbox";
+            checkbox.checked = task.date ? true : false;
 
             let taskContent = document.createElement('p');
-            taskContent.innerHTML = "Faire la vaisselle";
+            taskContent.innerHTML = task.content;
 
             let buttonModif = document.createElement('button');
                 let iconButtonModif = document.createElement('i');
@@ -80,7 +80,27 @@ function renderTask(todolist) {
             buttonDelete.classList.add('fa-solid');
             buttonDelete.classList.add('fa-trash');
             deleteDiv.appendChild(buttonDelete);
-        task.appendChild(content);
-        task.appendChild(deleteDiv);
-    todolist.appendChild(task);
+
+            buttonDelete.addEventListener('click', function(e) {
+                this.parentNode.parentNode.remove();
+            });
+
+        let newTaskButton = document.createElement('button');
+        newTaskButton.id = "add-task";
+        newTaskButton.innerHTML = "Add";
+        newTaskButton.addEventListener('click', function(e) {
+            this.style.color = "red";
+            let taskModal = taskModal();
+        });
+
+        taskElement.appendChild(time);
+        taskElement.appendChild(content);
+        taskElement.appendChild(deleteDiv);
+        taskElement.appendChild(newTaskButton);
+        
+    tasks.appendChild(taskElement);
 }
+
+// function deleteTask(task) {
+//     console.log('delete')
+// }

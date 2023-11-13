@@ -1,4 +1,4 @@
-class Task {
+export class Task {
     constructor(id, date, time, content, status) {
         this.id = id;
         this.date = date;
@@ -8,4 +8,5 @@ class Task {
     }
 }
 
-module.exports = {Task};
+// module.exports = {Task};
+// export default Task;
