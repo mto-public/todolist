@@ -15,7 +15,7 @@ main {
   justify-content: center;
 }
 
-#todolist {
+.todolist {
   /* background-color: brown; */
   width: 80%;
   height: 80%;
@@ -28,17 +28,19 @@ main {
   padding: 1em;
   border-radius: 10px;
 }
-#time {
+.time {
   padding: 0.5em;
   display: flex;
   justify-content: space-between;
 }
+
 #content {
   padding: 0.5em;
   display: flex;
   justify-content: space-between;
   background-color: white;
 }
+
 p {
   width: 100%;
   display: flex;
