@@ -1,0 +1,29 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+nav{
+    background-color: aqua;
+}
+
+main {
+    height: 100svh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#todolist{
+    background-color: brown;
+    width: 80%;
+    height: 80%;
+    padding: 1em;
+}
+.task{
+    background-color: beige;
+    margin: 1em;
+    padding: 1em;
+    border-radius: 10px;
+}
