@@ -17,6 +17,42 @@
     </header>
 
     <main>
+      <section class="todolist">
+        <button id="add-task" onclick=modal()>+</button>
+      </section>
+      <section id="createtaskTodolist">
+        <h1>Ma todolist</h1>
+        <div class="createTask">
+          <div class="createTime">
+            <div class="input">
+              <h2>Selectionner le Jour</h2>
+              <input id="date" type="date" />
+            </div>
+            <div class="input">
+              <h2>Selectionner l'heure</h2>
+              <input id="time"type="time" />
+            </div>
+          </div>
+          <div id="createContent">
+            <div class="input">
+              <h2>Non de la tache</h2>
+              <input id="taskName" type="text">
+            </div>
+            <div class="info">
+              <h2>Information sur la tache</h2>
+              <textarea id="info"rows="4">
+                </textarea>
+                
+            </div>
+          </div>
+        <div class="submit">
+          <button id="submitButton">
+            Valider
+          </button>
+          
+        </div>
+         
+      </section>
     </main>
 
 

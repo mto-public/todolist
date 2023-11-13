@@ -11,7 +11,6 @@ nav {
 main {
   height: 100svh;
   display: flex;
-  align-items: center;
   justify-content: center;
 }
 
@@ -57,7 +56,58 @@ p {
 #add-task {
   position: fixed;
   right: 4em;
-  bottom: 4em;
+  bottom: 4vh;
   padding: 2em;
   border-radius: 25px;
+}
+
+/*MODALE*/
+#createtaskTodolist{
+  background-color: beige;
+  padding: 1em;
+  margin-top: 2em;
+  border-radius: 10px;
+  width: 80vw;
+  max-height: 100%;
+  visibility: hidden;
+  position: absolute;
+  z-index: 1000;
+}
+.createTask{
+  padding: 1em;
+}
+.input {
+  padding: 1em;
+  display: flex;
+  justify-content: space-between;
+}
+.info{
+  padding: 0 1em 0 1em;
+}
+.info textarea{
+  margin-top: 1em;
+  width: 100%;
+}
+.submit{
+  display: flex;
+  justify-content: space-around;
+  margin: 1em;
+}
+
+.submit button{
+  background-color: green;
+  padding: 1em;
+  border-radius: 50px;
+  font-size: 1.5em;
+}
+
+
+@media (max-width: 600px){
+  #createtaskTodolist{
+    max-height:80vw
+  }
+  .input{
+    flex-direction: column;
+  }
+
 }
