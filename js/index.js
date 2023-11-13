@@ -104,3 +104,35 @@ function renderTask(tasks, task) {
 // function deleteTask(task) {
 //     console.log('delete')
 // }
+
+
+function modal() {
+    modal = document.getElementById("createtaskTodolist");
+    modal.style.visibility = (modal.style.visibility == "visible") ? "hidden" : "visible";
+    button = document.getElementById("add-task");
+    button.style.visibility = (button.style.visibility == "hidden") ? "visible" : "hidden";
+}
+
+function retourModal() {
+    modal = document.getElementById("createtaskTodolist");
+    modal.style.visibility = (modal.style.visibility == "hidden") ? "visible" : "hidden";
+    button = document.getElementById("add-task");
+    button.style.visibility = (button.style.visibility == "visible") ? "hidden" : "visible";
+}
+
+const date = document.getElementById("date");
+const time = document.getElementById("time");
+const taskName = document.getElementById("taskName");
+const taskInfo = document.getElementById("info");
+
+// Récupérez la valeur de l'élément
+const valueDate = date.value;
+const valueTime = time.value;
+const valuetaskName = taskName.value;
+const valueInfo = taskInfo.value;
+
+const bouton = document.getElementById("submitButton");
+bouton.addEventListener("click", function() {
+  console.log("La valeur de l'input est : " + valueDate);
+  console.log(valueInfo)
+});
