@@ -1,6 +1,13 @@
 import {Task} from './task.js';
 import {addElement} from './lib.js';
 
+let count = 0;
+
+let taskList = [
+    new Task(null, '13/11/2023', '15:54', "hello", true),
+    new Task(null, '13/11/2023', '15:54', "hello", true)
+];
+
 const main = document.querySelector("main");
 renderTodoList()
 
@@ -13,8 +20,15 @@ function renderTodoList() {
     let tasks = document.createElement('div');
     tasks.classList.add('tasks');
 
+    let newTaskButton = document.createElement('button');
+    newTaskButton.id = "add-task";
+    newTaskButton.innerHTML = "Add";
+    newTaskButton.addEventListener('click', taskModal);
+    
     todolist.appendChild(title);
     todolist.appendChild(tasks);
+    todolist.appendChild(newTaskButton);
+    main.appendChild(todolist);
 
     // let currentDate = new Date();
     // let optionsDate = { year: 'numeric', month: 'numeric', day: 'numeric' };
@@ -24,29 +38,18 @@ function renderTodoList() {
     // let task = new Task(null, formattedDate, formattedTime, "hello", true);
     // let task = new Task(null, '13/11/2023', '15:54', "hello", true);
 
-    let taskList = [
-        new Task(null, '13/11/2023', '15:54', "hello", true),
-        new Task(null, '13/11/2023', '15:54', "hello", true)
-    ];
-
-    for(let task of taskList) {
-        renderTask(tasks, task);
-    }
-
-    main.appendChild(todolist);
+    // for(let task of taskList) {
+    //     renderTask(task);
+    // }
 }
 
-function renderTask(tasks, task) {
+function renderTask(task) {
+    let tasks = document.querySelector('.tasks');
     let taskElement = document.createElement('div');
     taskElement.classList.add('task');
 
         let time = document.createElement('div');
         time.classList.add('time');
-            // let dateInput = document.createElement('input');
-            // let timeInput = document.createElement('input');
-            // dateInput.type = "date";
-            // timeInput.type = "time";
-
             let dateInput = document.createElement('div');
             let timeInput = document.createElement('div');
 
@@ -85,54 +88,60 @@ function renderTask(tasks, task) {
                 this.parentNode.parentNode.remove();
             });
 
-        let newTaskButton = document.createElement('button');
-        newTaskButton.id = "add-task";
-        newTaskButton.innerHTML = "Add";
-        newTaskButton.addEventListener('click', function(e) {
-            this.style.color = "red";
-            let taskModal = taskModal();
-        });
-
         taskElement.appendChild(time);
         taskElement.appendChild(content);
         taskElement.appendChild(deleteDiv);
-        taskElement.appendChild(newTaskButton);
         
     tasks.appendChild(taskElement);
+
 }
 
 // function deleteTask(task) {
 //     console.log('delete')
 // }
 
-
-function modal() {
-    modal = document.getElementById("createtaskTodolist");
+// taskModal();
+const modal = document.getElementById("taskModal");
+function taskModal() {
+    // let modal = document.getElementById("taskModal");
     modal.style.visibility = (modal.style.visibility == "visible") ? "hidden" : "visible";
-    button = document.getElementById("add-task");
-    button.style.visibility = (button.style.visibility == "hidden") ? "visible" : "hidden";
+    let modalClose = document.querySelector(".modalClose");
+    modalClose.addEventListener('click', closeModal);
+    
+    const date = document.getElementById("date");
+    const time = document.getElementById("time");
+    const taskName = document.getElementById("taskName");
+    const taskInfo = document.getElementById("info");
+
+    const submitButon = document.getElementById("submitButton");
+    submitButon.addEventListener("click", function(e) {
+        e.preventDefault();
+        alert(++count);
+        // Récupérez la valeur de l'élément
+        const valueDate = date.value;
+        const valueTime = time.value;
+        const valuetaskName = taskName.value;
+        const valueInfo = taskInfo.value;
+        let task = {
+            id: null,
+            date: valueDate,
+            time: valueTime,
+            content: valueInfo,
+            status: null
+        }
+            
+        closeModal();
+        renderTask(task);
+    });
 }
 
-function retourModal() {
-    modal = document.getElementById("createtaskTodolist");
-    modal.style.visibility = (modal.style.visibility == "hidden") ? "visible" : "hidden";
-    button = document.getElementById("add-task");
-    button.style.visibility = (button.style.visibility == "visible") ? "hidden" : "visible";
+function closeModal() {
+    let modal = document.getElementById("taskModal");
+    modal.style.visibility = "hidden";
+    // Reset form fields to their initial state
+    document.getElementById('date').value = '';
+    document.getElementById('time').value = '';
+    document.getElementById('taskName').value = '';
+    document.getElementById('info').value = '';
 }
 
-const date = document.getElementById("date");
-const time = document.getElementById("time");
-const taskName = document.getElementById("taskName");
-const taskInfo = document.getElementById("info");
-
-// Récupérez la valeur de l'élément
-const valueDate = date.value;
-const valueTime = time.value;
-const valuetaskName = taskName.value;
-const valueInfo = taskInfo.value;
-
-const bouton = document.getElementById("submitButton");
-bouton.addEventListener("click", function() {
-  console.log("La valeur de l'input est : " + valueDate);
-  console.log(valueInfo)
-});

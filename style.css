@@ -1,9 +1,15 @@
+/* ===================================== */
+/* RESET */
+/* ===================================== */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* ===================================== */
+/* MAIN PAGE */
+/* ===================================== */
 nav {
   background-color: aqua;
 }
@@ -61,8 +67,12 @@ p {
   border-radius: 25px;
 }
 
-/*MODALE*/
-#createtaskTodolist{
+
+
+/* ===================================== */
+/* MODAL */
+/* ===================================== */
+#taskModal{
   background-color: beige;
   padding: 1em;
   margin-top: 2em;
@@ -73,6 +83,22 @@ p {
   position: absolute;
   z-index: 1000;
 }
+
+#taskModal .header {
+  display: flex;
+  justify-content: space-between;
+}
+
+#taskModal .header .modalClose {
+  background-color: transparent;
+  border: none;
+}
+
+#taskModal .header i {
+  color: red;
+  font-size: 1.5rem;
+}
+
 .createTask{
   padding: 1em;
 }
