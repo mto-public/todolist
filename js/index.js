@@ -116,7 +116,7 @@ function taskModal() {
     const submitButon = document.getElementById("submitButton");
     submitButon.addEventListener("click", function(e) {
         e.preventDefault();
-        alert(++count);
+        // alert(++count);
         // Récupérez la valeur de l'élément
         const valueDate = date.value;
         const valueTime = time.value;
