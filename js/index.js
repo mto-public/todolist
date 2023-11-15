@@ -1,5 +1,6 @@
 import {Task} from './task.js';
 import {addElement} from './lib.js';
+import {update} from './update.js';
 
 let count = 0;
 
@@ -68,14 +69,15 @@ function renderTask(task) {
             let taskContent = document.createElement('p');
             taskContent.innerHTML = task.content;
 
-            let buttonModif = document.createElement('button');
+            let updateButton = document.createElement('button');
+            updateButton.classList.add("update");
                 let iconButtonModif = document.createElement('i');
                 iconButtonModif.classList.add("fa-solid");
                 iconButtonModif.classList.add("fa-pen");
-                buttonModif.appendChild(iconButtonModif);     
+                updateButton.appendChild(iconButtonModif);     
             content.appendChild(checkbox);
             content.appendChild(taskContent);
-            content.appendChild(buttonModif);
+            content.appendChild(updateButton);
 
         let deleteDiv = document.createElement('div');
             deleteDiv.id = "delete";
