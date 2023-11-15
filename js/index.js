@@ -7,6 +7,7 @@ import {axios} from './axiosFaisMaison.js';
 let users = null;
 const main = document.querySelector("main");
 
+
 // -----------------------------
 // FETCH using ASYNC - AWAIT
 // -----------------------------
@@ -18,7 +19,9 @@ const handleCallback = (data) => {
     // console.log(taskList);
 }
 
-axios.get(handleCallback)
+// axios.get(handleCallback)
+
+taskModal() 
 
 // -----------------------------
 // FETCH using THEN
