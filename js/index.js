@@ -101,22 +101,24 @@ function renderTask(task) {
 // }
 
 // taskModal();
-const modal = document.getElementById("taskModal");
+// const modal = document.getElementById("taskModal");
+// const submitButon = document.getElementById("submitButton");
+
 function taskModal() {
-    // let modal = document.getElementById("taskModal");
+    let modal = document.getElementById("taskModal");
     modal.style.visibility = (modal.style.visibility == "visible") ? "hidden" : "visible";
     let modalClose = document.querySelector(".modalClose");
     modalClose.addEventListener('click', closeModal);
     
+    const form = document.querySelector(".form");
     const date = document.getElementById("date");
     const time = document.getElementById("time");
     const taskName = document.getElementById("taskName");
     const taskInfo = document.getElementById("info");
 
-    const submitButon = document.getElementById("submitButton");
-    submitButon.addEventListener("click", function(e) {
+    // submitButon.addEventListener("click", function(e) {
+    form.onsubmit = function(e) {
         e.preventDefault();
-        // alert(++count);
         // Récupérez la valeur de l'élément
         const valueDate = date.value;
         const valueTime = time.value;
@@ -132,7 +134,7 @@ function taskModal() {
             
         closeModal();
         renderTask(task);
-    });
+    };
 }
 
 function closeModal() {
