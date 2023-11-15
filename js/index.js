@@ -1,17 +1,35 @@
 import {Task} from './task.js';
+import {User} from './user.js';
 import {addElement} from './lib.js';
 // import {update} from './update.js';
+import {axios} from './axiosFaisMaison.js';
 
-let taskList = [
-    new Task(null, '13/11/2023', '15:54', "hello", true),
-    new Task(null, '13/11/2023', '15:54', "hello", false),
-    new Task(null, '13/11/2023', '15:54', "hello", false)
-];
-
+let users = null;
 const main = document.querySelector("main");
-renderTodoList()
+const handleCallback = (data) => {
+    const taskList = data['todos'];
+    console.log(taskList);
+    loadUsers();
+    renderTodoList(taskList);
+    // console.log(taskList);
+}
 
-function renderTodoList() {
+axios.get(handleCallback)
+// const taskList2 = async () => {
+//     try {
+//       const response = await fetch("https://dummyjson.com/todos");
+//       const data = await response.json();
+//       console.log(data, 'data')
+//       result = data
+//       return data;
+//     } catch (err) {
+//       console.error(err);
+//       // Vous pouvez choisir de renvoyer une valeur par défaut ou de propager l'erreur
+//       // Par exemple : return []; ou throw err;
+//     }
+//   }
+
+function renderTodoList(taskList) {
     let todolist = document.createElement('section');
     todolist.classList.add('todolist');
     let title = document.createElement('h1');
@@ -32,12 +50,6 @@ function renderTodoList() {
     todolist.appendChild(newTaskButton);
     main.appendChild(todolist);
 
-    // let currentDate = new Date();
-    // let optionsDate = { year: 'numeric', month: 'numeric', day: 'numeric' };
-    // let optionsTime = { hour: '2-digit', minute: '2-digit', hour12: false };
-    // let formattedDate = currentDate.toLocaleDateString('fr-FR', optionsDate);
-    // let formattedTime = currentDate.toLocaleTimeString('fr-FR', optionsTime);
-
     for(let task of taskList) {
         renderTask(task);
     }
@@ -48,15 +60,16 @@ function renderTask(task) {
     let taskElement = document.createElement('div');
     taskElement.classList.add('task');
 
-        let time = document.createElement('div');
-        time.classList.add('time');
-            let dateInput = document.createElement('div');
-            let timeInput = document.createElement('div');
+        let info = document.createElement('div');
+        info.classList.add('time');
+            let user = document.createElement('div');
+            let taskId = document.createElement('div');
 
-            dateInput.innerHTML = task.date;
-            timeInput.innerHTML = task.time;
-            time.appendChild(dateInput);
-            time.appendChild(timeInput);
+            // user.innerHTML = users[task.userId].name;
+            user.innerHTML = "User: " + task.userId;
+            taskId.innerHTML = "Task Id: " + task.id;
+            info.appendChild(user);
+            info.appendChild(taskId);
         
 
         let content = document.createElement('div');
@@ -64,13 +77,13 @@ function renderTask(task) {
 
             let checkbox = document.createElement('input');
             checkbox.type = "checkbox";
-            checkbox.checked = task.status ? true : false;
+            checkbox.checked = task.completed ? true : false;
             if (checkbox.checked) {
                 taskElement.classList.add('inactive');
             } else {
                 taskElement.classList.remove('inactive');
             }
-            task.status = checkbox.checked ? true : false;
+            task.completed = checkbox.checked ? true : false;
 
             checkbox.addEventListener('change', function(e) {
                 let taskElement = checkbox.parentNode.parentNode;
@@ -82,7 +95,7 @@ function renderTask(task) {
             })
 
             let taskContent = document.createElement('p');
-            taskContent.innerHTML = task.content;
+            taskContent.innerHTML = task.todo;
 
             let updateButton = document.createElement('button');
             updateButton.classList.add("btn-update");
@@ -105,7 +118,7 @@ function renderTask(task) {
                 this.parentNode.parentNode.remove();
             });
 
-        taskElement.appendChild(time);
+        taskElement.appendChild(info);
         taskElement.appendChild(content);
         taskElement.appendChild(deleteDiv);
         
@@ -142,8 +155,10 @@ function taskModal() {
             
         closeModal();
         renderTask(task);
+
     };
 }
+
 
 function closeModal() {
     let modal = document.getElementById("taskModal");
@@ -155,3 +170,26 @@ function closeModal() {
     document.getElementById('info').value = '';
 }
 
+function loadUsers() {
+    users = [
+        {id: 1, name: "Toan"},
+        {id: 2, name: "Munir"},
+        {id: 3, name: "Emilly"},
+        {id: 4, name: "Newkid"},
+        {id: 5, name: "Yalis"},
+        {id: 6, name: "Christophe"},
+        {id: 7, name: "Briac"},
+        {id: 8, name: "Bilel"},
+        {id: 9, name: "Adrien"}
+    ]
+}
+
+    // let currentDate = new Date();
+    // let optionsDate = { year: 'numeric', month: 'numeric', day: 'numeric' };
+    // let optionsTime = { hour: '2-digit', minute: '2-digit', hour12: false };
+    // let formattedDate = currentDate.toLocaleDateString('fr-FR', optionsDate);
+    // let formattedTime = currentDate.toLocaleTimeString('fr-FR', optionsTime);
+
+    // for(let task of taskList) {
+    //     renderTask(task);
+    // }
