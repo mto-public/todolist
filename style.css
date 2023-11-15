@@ -16,7 +16,7 @@ nav {
   background-color: #333;
   overflow: hidden;
   color: white;
-  height: 1.5em;
+  height: 4rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -41,7 +41,7 @@ navbar a:hover {
 
 /* Add some style to the active link */
 navbar a.active {
-  background-color: #4CAF50;
+  background-color: #4caf50;
   color: white;
 }
 
@@ -56,11 +56,13 @@ main {
   width: 80%;
   height: 80%;
   padding: 1em;
-  position: relative;
+  /* position: relative; */
 }
 
-.todolist .title {
-  color: red;
+.title {
+  color: black;
+  display: flex;
+  justify-content: center;
   margin: 0.5em;
 }
 
@@ -69,11 +71,12 @@ main {
   margin: 1em;
   /* padding: 1em; */
   border-radius: 10px;
-  border: 1px solid gray;
+  box-shadow: 5px 5px 5px grey;
 }
 
-.inactive{
-  background-color: gray;
+.inactive {
+  background-color: rgba(128, 128, 128, 0.407);
+  text-decoration: line-through;
 }
 
 .time {
@@ -90,7 +93,7 @@ main {
   /* border-radius: 4px; */
 }
 
-.content input[type='checkbox'] {
+.content input[type="checkbox"] {
   margin: 0 1em;
   /* font-size: 1rem; */
 }
@@ -101,7 +104,6 @@ main {
   margin-right: 0.7em;
   color: green;
 }
-
 
 p {
   width: 100%;
@@ -146,11 +148,10 @@ p {
   border: 2px solid #2980b9; /* Change border color on hover */
 }
 
-
 /* ===================================== */
 /* MODAL */
 /* ===================================== */
-#taskModal{
+#taskModal {
   background-color: beige;
   padding: 1em;
   margin-top: 2em;
@@ -177,7 +178,7 @@ p {
   font-size: 1.5rem;
 }
 
-.form{
+.form {
   padding: 1em;
 }
 .input {
@@ -185,33 +186,38 @@ p {
   display: flex;
   justify-content: space-between;
 }
-.info{
+.info {
   padding: 0 1em 0 1em;
 }
-.info textarea{
+.info textarea {
   margin-top: 1em;
   width: 100%;
 }
-.submit{
+.submit {
   display: flex;
   justify-content: space-around;
   margin: 1em;
 }
 
-.submit button{
-  background-color: green;
-  padding: 1em;
-  border-radius: 50px;
-  font-size: 1.5em;
+.submit button {
+  background-color: #3498db;
+  color: white;
+  padding: 1rem;
+  border-radius: 25px;
+  font-size: 1rem;
+  width: 50%;
+  border: none;
 }
 
+.submit button:hover {
+  cursor: pointer;
+}
 
-@media (max-width: 600px){
-  #createtaskTodolist{
-    max-height:80vw
+@media (max-width: 600px) {
+  #createtaskTodolist {
+    max-height: 80vw;
   }
-  .input{
+  .input {
     flex-direction: column;
   }
-
 }
