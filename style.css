@@ -27,11 +27,18 @@ main {
   padding: 1em;
   position: relative;
 }
+
+.todolist .title {
+  color: red;
+  margin: 0.5em;
+}
+
 .task {
   background-color: beige;
   margin: 1em;
-  padding: 1em;
+  /* padding: 1em; */
   border-radius: 10px;
+  border: 1px solid gray;
 }
 
 .inactive{
@@ -44,13 +51,26 @@ main {
   justify-content: space-between;
 }
 
-#content {
+.content {
   padding: 0.5em;
   display: flex;
   justify-content: space-between;
   background-color: white;
-  border-radius: 4px;
+  /* border-radius: 4px; */
 }
+
+.content input[type='checkbox'] {
+  margin: 0 1em;
+  /* font-size: 1rem; */
+}
+
+.content .btn-update {
+  background-color: transparent;
+  border: none;
+  margin-right: 0.7em;
+  color: green;
+}
+
 
 p {
   width: 100%;
@@ -59,20 +79,41 @@ p {
   padding: 0.5em;
 }
 
-#delete {
-  padding: 0.5em;
+.div-delete {
+  padding: 1em;
   display: flex;
   justify-content: end;
+}
+
+.div-delete button {
+  background-color: transparent;
+  border: none;
+  color: brown;
 }
 
 #add-task {
   position: fixed;
   right: 4em;
   bottom: 4vh;
-  padding: 2em;
-  border-radius: 25px;
 }
 
+.round-button {
+  display: inline-block;
+  padding: 1.5em 1.8em;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  border-radius: 50%; /* Makes the button round */
+  background-color: #3498db; /* Set the background color */
+  color: #ffffff; /* Set the text color */
+  border: 2px solid #3498db; /* Set the border color */
+  cursor: pointer;
+}
+
+.round-button:hover {
+  background-color: #2980b9; /* Change background color on hover */
+  border: 2px solid #2980b9; /* Change border color on hover */
+}
 
 
 /* ===================================== */

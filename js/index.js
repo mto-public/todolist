@@ -2,8 +2,6 @@ import {Task} from './task.js';
 import {addElement} from './lib.js';
 // import {update} from './update.js';
 
-let count = 0;
-
 let taskList = [
     new Task(null, '13/11/2023', '15:54', "hello", true),
     new Task(null, '13/11/2023', '15:54', "hello", false),
@@ -17,6 +15,7 @@ function renderTodoList() {
     let todolist = document.createElement('section');
     todolist.classList.add('todolist');
     let title = document.createElement('h1');
+    title.classList.add('title');
     title.innerHTML = "My Todolist";
 
     let tasks = document.createElement('div');
@@ -24,7 +23,8 @@ function renderTodoList() {
 
     let newTaskButton = document.createElement('button');
     newTaskButton.id = "add-task";
-    newTaskButton.innerHTML = "Add";
+    newTaskButton.classList.add('round-button');
+    newTaskButton.innerHTML = "+";
     newTaskButton.addEventListener('click', taskModal);
     
     todolist.appendChild(title);
@@ -37,8 +37,6 @@ function renderTodoList() {
     // let optionsTime = { hour: '2-digit', minute: '2-digit', hour12: false };
     // let formattedDate = currentDate.toLocaleDateString('fr-FR', optionsDate);
     // let formattedTime = currentDate.toLocaleTimeString('fr-FR', optionsTime);
-    // let task = new Task(null, formattedDate, formattedTime, "hello", true);
-    // let task = new Task(null, '13/11/2023', '15:54', "hello", true);
 
     for(let task of taskList) {
         renderTask(task);
@@ -62,7 +60,7 @@ function renderTask(task) {
         
 
         let content = document.createElement('div');
-            content.id = "content";
+            content.classList.add("content");
 
             let checkbox = document.createElement('input');
             checkbox.type = "checkbox";
@@ -87,7 +85,7 @@ function renderTask(task) {
             taskContent.innerHTML = task.content;
 
             let updateButton = document.createElement('button');
-            updateButton.classList.add("update");
+            updateButton.classList.add("btn-update");
                 let iconButtonModif = document.createElement('i');
                 iconButtonModif.classList.add("fa-solid");
                 iconButtonModif.classList.add("fa-pen");
@@ -97,7 +95,7 @@ function renderTask(task) {
             content.appendChild(updateButton);
 
         let deleteDiv = document.createElement('div');
-            deleteDiv.id = "delete";
+            deleteDiv.classList.add("div-delete");
             let buttonDelete = document.createElement('button');
             buttonDelete.classList.add('fa-solid');
             buttonDelete.classList.add('fa-trash');
@@ -115,14 +113,6 @@ function renderTask(task) {
 
 }
 
-// function deleteTask(task) {
-//     console.log('delete')
-// }
-
-// taskModal();
-// const modal = document.getElementById("taskModal");
-// const submitButon = document.getElementById("submitButton");
-
 function taskModal() {
     let modal = document.getElementById("taskModal");
     modal.style.visibility = (modal.style.visibility == "visible") ? "hidden" : "visible";
@@ -135,7 +125,6 @@ function taskModal() {
     const taskName = document.getElementById("taskName");
     const taskInfo = document.getElementById("info");
 
-    // submitButon.addEventListener("click", function(e) {
     form.onsubmit = function(e) {
         e.preventDefault();
         // Récupérez la valeur de l'élément
