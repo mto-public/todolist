@@ -6,6 +6,10 @@ import {axios} from './axiosFaisMaison.js';
 
 let users = null;
 const main = document.querySelector("main");
+
+// -----------------------------
+// FETCH using ASYNC - AWAIT
+// -----------------------------
 const handleCallback = (data) => {
     const taskList = data['todos'];
     console.log(taskList);
@@ -15,19 +19,25 @@ const handleCallback = (data) => {
 }
 
 axios.get(handleCallback)
-// const taskList2 = async () => {
-//     try {
-//       const response = await fetch("https://dummyjson.com/todos");
-//       const data = await response.json();
-//       console.log(data, 'data')
-//       result = data
-//       return data;
-//     } catch (err) {
-//       console.error(err);
-//       // Vous pouvez choisir de renvoyer une valeur par défaut ou de propager l'erreur
-//       // Par exemple : return []; ou throw err;
-//     }
-//   }
+
+// -----------------------------
+// FETCH using THEN
+// -----------------------------
+
+// fetch("https://dummyjson.com/todos")
+//   .then((res) => res.json())
+//   .then((data) => {
+//     const todosArray = data.todos;
+
+//     todosArray.forEach((todo) => {
+//       const task = new Task(todo.id, null, null, todo.todo, todo.completed);
+
+//       renderTask(task);
+//     });
+//   })
+//   .catch((err) => {
+//     console.error(`erreur : ${err}`);
+//   });
 
 function renderTodoList(taskList) {
     let todolist = document.createElement('section');
