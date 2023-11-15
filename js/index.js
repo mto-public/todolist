@@ -1,12 +1,13 @@
 import {Task} from './task.js';
 import {addElement} from './lib.js';
-import {update} from './update.js';
+// import {update} from './update.js';
 
 let count = 0;
 
 let taskList = [
     new Task(null, '13/11/2023', '15:54', "hello", true),
-    new Task(null, '13/11/2023', '15:54', "hello", true)
+    new Task(null, '13/11/2023', '15:54', "hello", false),
+    new Task(null, '13/11/2023', '15:54', "hello", false)
 ];
 
 const main = document.querySelector("main");
@@ -39,9 +40,9 @@ function renderTodoList() {
     // let task = new Task(null, formattedDate, formattedTime, "hello", true);
     // let task = new Task(null, '13/11/2023', '15:54', "hello", true);
 
-    // for(let task of taskList) {
-    //     renderTask(task);
-    // }
+    for(let task of taskList) {
+        renderTask(task);
+    }
 }
 
 function renderTask(task) {
@@ -62,9 +63,25 @@ function renderTask(task) {
 
         let content = document.createElement('div');
             content.id = "content";
+
             let checkbox = document.createElement('input');
             checkbox.type = "checkbox";
-            checkbox.checked = task.date ? true : false;
+            checkbox.checked = task.status ? true : false;
+            if (checkbox.checked) {
+                taskElement.classList.add('inactive');
+            } else {
+                taskElement.classList.remove('inactive');
+            }
+            task.status = checkbox.checked ? true : false;
+
+            checkbox.addEventListener('change', function(e) {
+                let taskElement = checkbox.parentNode.parentNode;
+                if (checkbox.checked) {
+                    taskElement.classList.add('inactive');
+                } else {
+                    taskElement.classList.remove('inactive');
+                }
+            })
 
             let taskContent = document.createElement('p');
             taskContent.innerHTML = task.content;
