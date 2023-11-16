@@ -5,6 +5,7 @@ import {addElement} from './lib.js';
 import {axios} from './axiosFaisMaison.js';
 
 let users = null;
+let taskIdMax = 0;
 const main = document.querySelector("main");
 
 
@@ -12,16 +13,17 @@ const main = document.querySelector("main");
 // FETCH using ASYNC - AWAIT
 // -----------------------------
 const handleCallback = (data) => {
-    const taskList = data['todos'];
+    // const taskList = data['todos'];
+    const taskList = data.todos;
+    taskIdMax = taskList.length;
     console.log(taskList);
     loadUsers();
     renderTodoList(taskList);
     // console.log(taskList);
 }
 
-// axios.get(handleCallback)
-
-taskModal() 
+axios.get(handleCallback)
+// taskModal() 
 
 // -----------------------------
 // FETCH using THEN
@@ -79,7 +81,7 @@ function renderTask(task) {
             let taskId = document.createElement('div');
 
             // user.innerHTML = users[task.userId].name;
-            user.innerHTML = "User: " + task.userId;
+            user.innerHTML = `User: ${users[task.userId] != undefined ? users[task.userId].name : task.userId}`;
             taskId.innerHTML = "Task Id: " + task.id;
             info.appendChild(user);
             info.appendChild(taskId);
@@ -136,8 +138,8 @@ function renderTask(task) {
         taskElement.appendChild(deleteDiv);
         
     tasks.appendChild(taskElement);
-
 }
+
 
 function taskModal() {
     let modal = document.getElementById("taskModal");
@@ -145,30 +147,20 @@ function taskModal() {
     let modalClose = document.querySelector(".modalClose");
     modalClose.addEventListener('click', closeModal);
     
-    const form = document.querySelector(".form");
-    const date = document.getElementById("date");
-    const time = document.getElementById("time");
-    const taskName = document.getElementById("taskName");
-    const taskInfo = document.getElementById("info");
-
+    const form = document.querySelector(".taskForm");
     form.onsubmit = function(e) {
         e.preventDefault();
-        // Récupérez la valeur de l'élément
-        const valueDate = date.value;
-        const valueTime = time.value;
-        const valuetaskName = taskName.value;
-        const valueInfo = taskInfo.value;
+        const taskName = document.getElementById("taskName").value;
+        const taskInfo = document.getElementById("description").value;
         let task = {
-            id: null,
-            date: valueDate,
-            time: valueTime,
-            content: valueInfo,
-            status: null
+            id: ++taskIdMax,
+            userId: 1,
+            todo: taskName,
+            completed: false
         }
-            
+        // console.log(task);    
         closeModal();
         renderTask(task);
-
     };
 }
 
@@ -177,10 +169,8 @@ function closeModal() {
     let modal = document.getElementById("taskModal");
     modal.style.visibility = "hidden";
     // Reset form fields to their initial state
-    document.getElementById('date').value = '';
-    document.getElementById('time').value = '';
     document.getElementById('taskName').value = '';
-    document.getElementById('info').value = '';
+    document.getElementById('description').value = '';
 }
 
 function loadUsers() {
