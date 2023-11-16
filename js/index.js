@@ -4,7 +4,7 @@ import { addElement } from "./lib.js";
 // import {update} from './update.js';
 import { axios } from "./axiosFaisMaison.js";
 
-let taskList = null;
+let taskList = [];
 let users = null;
 let taskIdMax = 0;
 const main = document.querySelector("main");
@@ -21,18 +21,27 @@ function setLocal(taskList) {
   console.warn(localStorage.getItem("todos"));
 }
 
+function getLocal() {
+  let data = localStorage.getItem("todos");
+  console.log(data);
+  if (data != null) {
+    taskList = JSON.parse(data);
+  }
+  taskIdMax = taskList.length;
+  loadUsers();
+  renderTodoList(taskList);
+}
+getLocal();
+
 const handleCallback = (data) => {
-  // const taskList = data['todos'];
   taskList = data.todos;
   setLocal(taskList);
   taskIdMax = taskList.length;
-  // console.log(taskList);
   loadUsers();
   renderTodoList(taskList);
-  // console.log(taskList);
 };
 
-axios.get(handleCallback);
+// axios.get(handleCallback);
 // taskModal()
 
 // -----------------------------
