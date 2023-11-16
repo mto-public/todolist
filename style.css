@@ -11,12 +11,22 @@
 /* MAIN PAGE */
 /* ===================================== */
 
+main {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+body {
+  background: rgb(0, 0, 0);
+}
 /* Basic styles for the navbar */
 nav {
-  background-color: #333;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  background-color: #2f4f4f;
   overflow: hidden;
   color: white;
-  height: 1.5em;
+  height: 4rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -41,7 +51,7 @@ navbar a:hover {
 
 /* Add some style to the active link */
 navbar a.active {
-  background-color: #4CAF50;
+  background-color: #4caf50;
   color: white;
 }
 
@@ -52,7 +62,6 @@ main {
 }
 
 .todolist {
-  /* background-color: brown; */
   width: 80%;
   height: 80%;
   padding: 1em;
@@ -60,20 +69,25 @@ main {
 }
 
 .todolist .title {
-  color: red;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  color: white;
   margin: 0.5em;
 }
 
 .task {
-  background-color: beige;
+  background-color: #b4c4c4;
   margin: 1em;
-  /* padding: 1em; */
-  border-radius: 10px;
-  border: 1px solid gray;
+  border-radius: 1.5rem 0 1.5rem 0;
 }
 
-.inactive{
-  background-color: gray;
+.inactive {
+  background-color: rgb(172, 172, 172);
+  opacity: 0.33;
+}
+.inactive .content {
+  background-color: rgb(172, 172, 172);
+  text-decoration: line-through;
+  opacity: 0.33;
 }
 
 .time {
@@ -87,10 +101,9 @@ main {
   display: flex;
   justify-content: space-between;
   background-color: white;
-  /* border-radius: 4px; */
 }
 
-.content input[type='checkbox'] {
+.content input[type="checkbox"] {
   margin: 0 1em;
   /* font-size: 1rem; */
 }
@@ -99,9 +112,12 @@ main {
   background-color: transparent;
   border: none;
   margin-right: 0.7em;
-  color: green;
+  color: rgb(0, 0, 0);
 }
 
+.btn-update:hover {
+  cursor: pointer;
+}
 
 p {
   width: 100%;
@@ -119,7 +135,11 @@ p {
 .div-delete button {
   background-color: transparent;
   border: none;
-  color: brown;
+  color: rgb(255, 255, 255);
+}
+
+.div-delete button:hover {
+  cursor: pointer;
 }
 
 #add-task {
@@ -146,16 +166,16 @@ p {
   border: 2px solid #2980b9; /* Change border color on hover */
 }
 
-
 /* ===================================== */
 /* MODAL */
 /* ===================================== */
-#taskModal{
+#taskModal {
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
   background-color: #1c1c19;
   color: white;
   padding: 1em;
   margin-top: 2em;
-  border-radius: 10px;
+  border-radius: 1.5rem 0 1.5rem 0;
   width: 80vw;
   max-height: 100%;
   visibility: hidden;
@@ -174,8 +194,12 @@ p {
   border: none;
 }
 
+.modalClose:hover {
+  cursor: pointer;
+}
+
 #taskModal .header i {
-  color: red;
+  color: rgb(255, 255, 255);
   font-size: 1.5rem;
 }
 
@@ -183,7 +207,8 @@ p {
   padding: 1em;
 }
 
-form input, form textarea {
+form input,
+form textarea {
   padding: 1em;
   width: 100%;
   border-radius: 4px;
@@ -198,25 +223,15 @@ form input, form textarea {
 }
 
 form button {
-  background-color: #57a357;
+  background-color: #3498db;
   color: white;
   border: 0;
-  padding: 0.5em;
-  border-radius: 4px;
-  font-size: 1.5em;
+  padding: 0.5rem 2rem 0.5rem 2rem;
+  border-radius: 30px;
+  font-size: 1.1rem;
 }
 
 form button:hover {
-  background-color: #3498db;
-}
-
-
-@media (max-width: 600px){
-  #createtaskTodolist{
-    max-height:80vw
-  }
-  .input{
-    flex-direction: column;
-  }
-
+  background-color: #2980b9;
+  cursor: pointer;
 }
