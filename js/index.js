@@ -4,6 +4,7 @@ import {addElement} from './lib.js';
 // import {update} from './update.js';
 import {axios} from './axiosFaisMaison.js';
 
+let taskList = null;
 let users = null;
 let taskIdMax = 0;
 const main = document.querySelector("main");
@@ -14,7 +15,7 @@ const main = document.querySelector("main");
 // -----------------------------
 const handleCallback = (data) => {
     // const taskList = data['todos'];
-    const taskList = data.todos;
+    taskList = data.todos;
     taskIdMax = taskList.length;
     console.log(taskList);
     loadUsers();
@@ -158,6 +159,8 @@ function taskModal() {
             todo: taskName,
             completed: false
         }
+        taskList.push(task)
+        console.log(taskList);    
         // console.log(task);    
         closeModal();
         renderTask(task);
