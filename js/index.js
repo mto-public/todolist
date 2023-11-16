@@ -16,24 +16,30 @@ const main = document.querySelector("main");
 // -----------------------------
 // FETCH using ASYNC - AWAIT
 // -----------------------------
-function setLocal(taskList) {
-  localStorage.setItem("todos", JSON.stringify(taskList));
-  console.warn(localStorage.getItem("todos"));
+getApi()
+async function getApi() {
+    const data = await axios.get();
+    taskList = data.todos;    // data['todos']
+    setLocal(taskList);
+    taskIdMax = taskList.length;
+    loadUsers();
+    renderTodoList(taskList);
 }
 
-const handleCallback = (data) => {
-  // const taskList = data['todos'];
-  taskList = data.todos;
-  setLocal(taskList);
-  taskIdMax = taskList.length;
-  // console.log(taskList);
-  loadUsers();
-  renderTodoList(taskList);
-  // console.log(taskList);
-};
 
-axios.get(handleCallback);
-// taskModal()
+// -----------------------------
+// FETCH using ASYNC - AWAIT With Callback
+// -----------------------------
+// const handleGetCallback = (data) => {
+//   taskList = data.todos;    // data['todos']
+//   setLocal(taskList);
+//   taskIdMax = taskList.length;
+//   loadUsers();
+//   renderTodoList(taskList);
+// };
+
+// axios.getWithCallback(handleGetCallback);
+
 
 // -----------------------------
 // FETCH using THEN
@@ -53,6 +59,12 @@ axios.get(handleCallback);
 //   .catch((err) => {
 //     console.error(`erreur : ${err}`);
 //   });
+
+function setLocal(taskList) {
+    localStorage.setItem("todos", JSON.stringify(taskList));
+    console.warn(localStorage.getItem("todos"));
+}
+
 
 function renderTodoList(taskList) {
   let todolist = document.createElement("section");
@@ -143,8 +155,7 @@ function renderTask(task) {
 
   buttonDelete.addEventListener("click", function (e) {
     let task = this.parentNode.parentNode;
-    let tid = task.querySelector(".taskId");
-    let id = parseInt(tid.textContent.slice(-1));
+    let id = parseInt(task.querySelector(".taskId").textContent.slice(-1)); // 1 - int
     task.remove();
     taskList = taskList.filter((e) => e.id != id);
     setLocal(taskList);
@@ -168,6 +179,9 @@ function taskModal() {
   form.onsubmit = function (e) {
     e.preventDefault();
     const taskName = document.getElementById("taskName").value;
+    if(taskName === "") {
+        return
+    }
     const taskInfo = document.getElementById("description").value;
     let task = {
       id: ++taskIdMax,

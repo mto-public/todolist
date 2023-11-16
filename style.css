@@ -166,7 +166,7 @@ p {
 #taskModal .header {
   display: flex;
   justify-content: space-between;
-  padding: 0 1em;
+  padding: 0.5em 0em;
 }
 
 #taskModal .header .modalClose {
@@ -189,6 +189,11 @@ form input, form textarea {
   border-radius: 4px;
   border: none;
   margin: 0.8em 0;
+}
+
+form input:active, form textarea:active {
+  /* border: 2px solid red; */
+  border: none;
 }
 
 .submit {
