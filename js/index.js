@@ -110,6 +110,7 @@ function renderTodoList(taskList) {
   }
 }
 
+
 function renderTask(task) {
   let tasks = document.querySelector(".tasks");
   let taskElement = document.createElement("div");
