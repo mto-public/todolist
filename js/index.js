@@ -1,10 +1,10 @@
 import { Task } from "./task.js";
 import { User } from "./user.js";
 import { addElement } from "./lib.js";
-// import {update} from './update.js';
+//import {openUpdateModal, updateTaskInUI} from './update.js';
 import { axios } from "./axiosFaisMaison.js";
 
-let taskList = null;
+let taskList = [];
 let users = null;
 let taskIdMax = 0;
 const main = document.querySelector("main");
@@ -41,10 +41,12 @@ async function getApi() {
 // axios.getWithCallback(handleGetCallback);
 
 
+// axios.get(handleCallback);
+// taskModal()
+
 // -----------------------------
 // FETCH using THEN
 // -----------------------------
-
 // fetch("https://dummyjson.com/todos")
 //   .then((res) => res.json())
 //   .then((data) => {
@@ -59,6 +61,22 @@ async function getApi() {
 //   .catch((err) => {
 //     console.error(`erreur : ${err}`);
 //   });
+
+// -----------------------------
+// FETCH LOCAL
+// -----------------------------
+// getLocal();
+
+function getLocal() {
+  let data = localStorage.getItem("todos");
+  console.log(data);
+  if (data != null) {
+    taskList = JSON.parse(data);
+  }
+  taskIdMax = taskList.length;
+  loadUsers();
+  renderTodoList(taskList);
+}
 
 function setLocal(taskList) {
     localStorage.setItem("todos", JSON.stringify(taskList));
@@ -96,9 +114,12 @@ function renderTask(task) {
   let tasks = document.querySelector(".tasks");
   let taskElement = document.createElement("div");
   taskElement.classList.add("task");
+  taskElement.id = task.id;
+
 
   let info = document.createElement("div");
   info.classList.add("time");
+  info.id = task.id;
   let user = document.createElement("div");
   let taskId = document.createElement("div");
   taskId.classList.add("taskId");
@@ -113,6 +134,7 @@ function renderTask(task) {
 
   let content = document.createElement("div");
   content.classList.add("content");
+  content.id = "content";
 
   let checkbox = document.createElement("input");
   checkbox.type = "checkbox";
@@ -161,11 +183,26 @@ function renderTask(task) {
     setLocal(taskList);
   });
 
+  updateButton.addEventListener('click', function(e) {
+    openUpdateModal(task);
+    tasks.style.display = "none";
+  });
+  updateSubmitButton.addEventListener('click', function(e) {
+  tasks.style.display = "flex";
+  tasks.style.flexDirection = "column";
+  });
+
+  content.appendChild(checkbox);
+  content.appendChild(taskContent);
+  content.appendChild(updateButton);
+
   taskElement.appendChild(info);
   taskElement.appendChild(content);
   taskElement.appendChild(deleteDiv);
 
   tasks.appendChild(taskElement);
+  tasks.appendChild(taskElement);
+  sortTasks();
 }
 
 function taskModal() {
@@ -174,7 +211,8 @@ function taskModal() {
     modal.style.visibility == "visible" ? "hidden" : "visible";
   let modalClose = document.querySelector(".modalClose");
   modalClose.addEventListener("click", closeModal);
-
+  const taskName = document.getElementById("taskName");
+  const taskInfo = document.getElementById("info");
   const form = document.querySelector(".taskForm");
   form.onsubmit = function (e) {
     e.preventDefault();
@@ -228,3 +266,88 @@ function loadUsers() {
 // for(let task of taskList) {
 //     renderTask(task);
 // }
+function openUpdateModal(task) {
+  let modal = document.getElementById("updateModal");
+  modal.style.display = "block";  
+  
+  // Obtenez les éléments du formulaire de mise à jour
+  const updateForm = document.querySelector(".updateForm");
+  const updateDate = document.getElementById("updateDate");
+  const updateTime = document.getElementById("updateTime");
+  const updateTaskName = document.getElementById("updateInfo");
+  const updateTaskInfo = document.getElementById("updateTaskName");
+  // Pré-remplissez le formulaire 
+  updateDate.innerHTML = "user : " + task.userId;
+  updateTime.innerHTML = "id : " + task.id;
+  updateTaskName.value = task.content;
+  updateTaskInfo.value = task.todo;
+  // On récupère le bouton de soumission du formulaire de mise à jour
+  const updateSubmitButton = document.getElementById("updateSubmitButton");
+
+  // Ajoutez un écouteur d'événements au bouton de soumission
+  updateSubmitButton.addEventListener("click", function(e) {
+      e.preventDefault();
+      
+      // Mettez à jour les valeurs des infos
+      task.date = updateDate.value;
+      task.time = updateTime.value;
+      task.content = updateTaskInfo.value;
+      console.log(task.content);
+      
+      // On masque la modal apres la mise a jour
+      modal.style.display = "none";
+      // On met à jour les valeur dans l'interface utilisateur
+      updateTaskInUI(task);
+  });
+}
+
+
+
+function updateTaskInUI(task) {
+
+  let updateDate = document.getElementById("updateDate");
+  let updateTime = document.getElementById("updateTime");
+  let updateTaskName = document.getElementById("updateTaskName");
+  let updateInfo = document.getElementById("content");
+
+  updateDate.value = task.date;
+  updateTime.value = task.time;
+  updateTaskName.value = task.content;
+  updateInfo.value = task.content;
+
+  // Mettez à jour le contenu de la tâche dans l'interface utilisateur
+  let tasks = document.querySelectorAll('.task');
+  let taskElementid = 0;
+  tasks.forEach(taskElement => {
+      console.log(task.id);
+      
+      if (taskElementid == task.id) {
+          console.log(taskElementid);
+          let taskContent = taskElement.querySelector('#content p');
+          if (updateInfo.value) {
+              task.todo = updateInfo.value;                
+              renderTask(task);  
+              const taskDiv = document.getElementById(task.id);
+              taskDiv.remove(); 
+          }
+      }
+      
+      taskElementid++;
+  });
+}
+
+function sortTasks() {
+  const tasksContainer = document.querySelector(".tasks");
+  const taskElements = Array.from(tasksContainer.querySelectorAll(".task"));
+  const sortedTasks = taskElements.sort((a, b) => {
+    const idA = parseInt(a.id);
+    const idB = parseInt(b.id);
+    return idA - idB;
+  });
+  
+  tasksContainer.innerHTML = ""; // Clear container
+  
+  sortedTasks.forEach(task => {
+    tasksContainer.appendChild(task);
+  });
+}
