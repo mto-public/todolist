@@ -235,3 +235,63 @@ form button:hover {
   background-color: #2980b9;
   cursor: pointer;
 }
+
+
+#updateModal {
+  background-color: #1c1c19;
+  color: white;
+  padding: 1em;
+  border-radius: 10px;
+  width: 80vw;
+  max-height: 100%;
+  position: fixed;
+  display : none;
+  top: 5em;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+}
+
+#updateModal .updateForm {
+  padding: 1em;
+}
+
+#updateModal label {
+  display: block;
+  margin-top: 1em;
+}
+
+#updateModal input,
+#updateModal textarea,
+#updateModal button {
+  margin-top: 0.5em;
+  padding: 0.5em;
+  border-radius: 5px;
+}
+
+#updateModal button {
+  background-color: #3498db;
+  color: white;
+  padding: 1em;
+  border-radius: 50px;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+
+#updateModal button:hover {
+  background-color: #2980b9;;
+}
+#updateTaskName{
+  width: 100%;
+}
+.user{
+  display: flex;
+  justify-content: space-between;
+}
+#updateInfo{
+  width: 100%;
+}
+.maj{
+  display: flex;
+  justify-content: center;
+}
