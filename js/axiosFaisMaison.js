@@ -19,4 +19,8 @@ export const axios = {
         console.error(err);
       }
     }      
+
+    // post: 
+    // put:
+    // delete:
 }

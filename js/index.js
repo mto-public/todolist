@@ -1,11 +1,10 @@
 import { Task } from "./task.js";
 import { User } from "./user.js";
 import { addElement } from "./lib.js";
-//import {openUpdateModal, updateTaskInUI} from './update.js';
 import { axios } from "./axiosFaisMaison.js";
 
 let taskList = [];
-let users = null;
+let users = [];
 let taskIdMax = 0;
 const main = document.querySelector("main");
 
@@ -16,7 +15,7 @@ const main = document.querySelector("main");
 // -----------------------------
 // FETCH using ASYNC - AWAIT
 // -----------------------------
-getApi()
+// getApi()
 async function getApi() {
     const data = await axios.get();
     taskList = data.todos;    // data['todos']
@@ -30,16 +29,15 @@ async function getApi() {
 // -----------------------------
 // FETCH using ASYNC - AWAIT With Callback
 // -----------------------------
-// const handleGetCallback = (data) => {
-//   taskList = data.todos;    // data['todos']
-//   setLocal(taskList);
-//   taskIdMax = taskList.length;
-//   loadUsers();
-//   renderTodoList(taskList);
-// };
+const handleGetCallback = (data) => {
+  taskList = data.todos;    // data['todos']
+  setLocal(taskList);
+  taskIdMax = taskList.length;
+  loadUsers();
+  renderTodoList(taskList);
+};
 
 // axios.getWithCallback(handleGetCallback);
-
 
 // axios.get(handleCallback);
 // taskModal()
@@ -65,7 +63,7 @@ async function getApi() {
 // -----------------------------
 // FETCH LOCAL
 // -----------------------------
-// getLocal();
+getLocal();
 
 function getLocal() {
   let data = localStorage.getItem("todos");
@@ -84,6 +82,9 @@ function setLocal(taskList) {
 }
 
 
+// -----------------------------
+// RENDER TODO LIST
+// -----------------------------
 function renderTodoList(taskList) {
   let todolist = document.createElement("section");
   todolist.classList.add("todolist");
@@ -126,8 +127,8 @@ function renderTask(task) {
   taskId.classList.add("taskId");
 
   // user.innerHTML = users[task.userId].name;
-  user.innerHTML = `User: ${
-    users[task.userId] != undefined ? users[task.userId].name : task.userId
+  user.innerHTML = `User (${task.userId}): ${
+    users[task.userId] != undefined ? users[task.userId].name : "Other"
   }`;
   taskId.innerHTML = "Task Id: " + task.id;
   info.appendChild(user);
@@ -188,9 +189,10 @@ function renderTask(task) {
     openUpdateModal(task);
     tasks.style.display = "none";
   });
+
   updateSubmitButton.addEventListener('click', function(e) {
-  tasks.style.display = "flex";
-  tasks.style.flexDirection = "column";
+    tasks.style.display = "flex";
+    tasks.style.flexDirection = "column";
   });
 
   content.appendChild(checkbox);
@@ -205,6 +207,8 @@ function renderTask(task) {
   tasks.appendChild(taskElement);
   sortTasks();
 }
+
+
 
 function taskModal() {
   let modal = document.getElementById("taskModal");
@@ -236,6 +240,7 @@ function taskModal() {
   };
 }
 
+
 function closeModal() {
   let modal = document.getElementById("taskModal");
   modal.style.visibility = "hidden";
@@ -243,6 +248,7 @@ function closeModal() {
   document.getElementById("taskName").value = "";
   document.getElementById("description").value = "";
 }
+
 
 function loadUsers() {
   users = [
