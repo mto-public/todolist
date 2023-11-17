@@ -1,44 +1,124 @@
+/* ===================================== */
+/* RESET */
+/* ===================================== */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* ===================================== */
+/* MAIN PAGE */
+/* ===================================== */
+
+main {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+body {
+  background: rgb(0, 0, 0);
+}
+/* Basic styles for the navbar */
 nav {
-  background-color: aqua;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  background-color: #2f4f4f;
+  overflow: hidden;
+  color: white;
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1em;
+}
+
+/* Style for the navbar links */
+navbar a {
+  float: left;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+/* Change color on hover */
+navbar a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Add some style to the active link */
+navbar a.active {
+  background-color: #4caf50;
+  color: white;
 }
 
 main {
   height: 100svh;
   display: flex;
-  align-items: center;
   justify-content: center;
 }
 
-#todolist {
-  /* background-color: brown; */
+.todolist {
   width: 80%;
   height: 80%;
   padding: 1em;
   position: relative;
 }
-.task {
-  background-color: beige;
-  margin: 1em;
-  padding: 1em;
-  border-radius: 10px;
+
+.todolist .title {
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  color: white;
+  margin: 0.5em;
 }
-#time {
-  padding: 0.5em;
+
+.task {
+  background-color: #b4c4c4;
+  margin: 1em;
+  border-radius: 1.5rem 0 1.5rem 0;
+}
+
+.inactive {
+  background-color: rgb(172, 172, 172);
+  opacity: 0.33;
+}
+.inactive .content {
+  background-color: rgb(172, 172, 172);
+  text-decoration: line-through;
+  opacity: 0.33;
+}
+
+.time {
+  padding: 0.8em;
   display: flex;
   justify-content: space-between;
 }
-#content {
+
+.content {
   padding: 0.5em;
   display: flex;
   justify-content: space-between;
   background-color: white;
 }
+
+.content input[type="checkbox"] {
+  margin: 0 1em;
+  /* font-size: 1rem; */
+}
+
+.content .btn-update {
+  background-color: transparent;
+  border: none;
+  margin-right: 0.7em;
+  color: rgb(0, 0, 0);
+}
+
+.btn-update:hover {
+  cursor: pointer;
+}
+
 p {
   width: 100%;
   display: flex;
@@ -46,16 +126,172 @@ p {
   padding: 0.5em;
 }
 
-#delete {
-  padding: 0.5em;
+.div-delete {
+  padding: 1em;
   display: flex;
   justify-content: end;
+}
+
+.div-delete button {
+  background-color: transparent;
+  border: none;
+  color: rgb(255, 255, 255);
+}
+
+.div-delete button:hover {
+  cursor: pointer;
 }
 
 #add-task {
   position: fixed;
   right: 4em;
-  bottom: 4em;
-  padding: 2em;
-  border-radius: 25px;
+  bottom: 4vh;
+}
+
+.round-button {
+  display: inline-block;
+  padding: 1.5em 1.8em;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  border-radius: 50%; /* Makes the button round */
+  background-color: #3498db; /* Set the background color */
+  color: #ffffff; /* Set the text color */
+  border: 2px solid #3498db; /* Set the border color */
+  cursor: pointer;
+}
+
+.round-button:hover {
+  background-color: #2980b9; /* Change background color on hover */
+  border: 2px solid #2980b9; /* Change border color on hover */
+}
+
+/* ===================================== */
+/* MODAL */
+/* ===================================== */
+#taskModal {
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  background-color: #1c1c19;
+  color: white;
+  padding: 1em;
+  margin-top: 2em;
+  border-radius: 1.5rem 0 1.5rem 0;
+  width: 80vw;
+  max-height: 100%;
+  visibility: hidden;
+  position: fixed;
+  z-index: 1000;
+}
+
+#taskModal .header {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 1em;
+}
+
+#taskModal .header .modalClose {
+  background-color: transparent;
+  border: none;
+}
+
+.modalClose:hover {
+  cursor: pointer;
+}
+
+#taskModal .header i {
+  color: rgb(255, 255, 255);
+  font-size: 1.5rem;
+}
+
+.form {
+  padding: 1em;
+}
+
+form input,
+form textarea {
+  padding: 1em;
+  width: 100%;
+  border-radius: 4px;
+  border: none;
+  margin: 0.8em 0;
+}
+
+.submit {
+  display: flex;
+  justify-content: space-around;
+  margin: 1em;
+}
+
+form button {
+  background-color: #3498db;
+  color: white;
+  border: 0;
+  padding: 0.5rem 2rem 0.5rem 2rem;
+  border-radius: 30px;
+  font-size: 1.1rem;
+}
+
+form button:hover {
+  background-color: #2980b9;
+  cursor: pointer;
+}
+
+
+#updateModal {
+  background-color: #1c1c19;
+  color: white;
+  padding: 1em;
+  border-radius: 10px;
+  width: 80vw;
+  max-height: 100%;
+  position: fixed;
+  display : none;
+  top: 5em;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+}
+
+#updateModal .updateForm {
+  padding: 1em;
+}
+
+#updateModal label {
+  display: block;
+  margin-top: 1em;
+}
+
+#updateModal input,
+#updateModal textarea,
+#updateModal button {
+  margin-top: 0.5em;
+  padding: 0.5em;
+  border-radius: 5px;
+}
+
+#updateModal button {
+  background-color: #3498db;
+  color: white;
+  padding: 1em;
+  border-radius: 50px;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+
+#updateModal button:hover {
+  background-color: #2980b9;;
+}
+#updateTaskName{
+  width: 100%;
+}
+.user{
+  display: flex;
+  justify-content: space-between;
+}
+#updateInfo{
+  width: 100%;
+}
+.maj{
+  display: flex;
+  justify-content: center;
 }

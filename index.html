@@ -8,44 +8,58 @@
   </head>
   <body>
     <header>
-      <nav>
-        <div>
-          <i></i>
-          <h1>Todolist</h1>
+      <nav class=".navbar">
+        <div class="left">
+          <a><i class="fa-solid fa-circle-nodes"></i></a>
+        </div>
+        <div class="right">
+          <a>
+            <i class="fa-solid fa-people"></i>
+            Connexion
+          </a>
         </div>
       </nav>
     </header>
 
     <main>
-      <section id="todolist">
-        <h1>Ma todolist</h1>
-        <div class="task">
-          <div id="time">
-            <input type="date" />
-            <input type="time" />
-          </div>
-          <div id="content">
-            <input type="checkbox" />
 
-            <p>Note</p>
-            <button>
-              <i class="fa-solid fa-pen"></i>
-            </button>
-          </div>
-          <div id="delete">
-            <button>
-              <i class="fa-solid fa-trash"></i>
-            </button>
-          </div>
+      <section id="taskModal" class="modal">
+        <div class="header">
+          <h1>Ajoute une Tâche</h1>
+          <button class="modalClose"><i class="fa-solid fa-xmark"></i></button>    
         </div>
-
-        <button id="add-task">+</button>
+        
+        <form class="taskForm">
+          <input id="taskName" type="text" placeholder="Task">
+          <textarea id="description"rows="4" placeholder="Description"></textarea>
+          <div class="submit">
+          <button id="submitButton">Valider</button>
+        </form>
       </section>
+       <div id="updateModal" class="modal">
+      <form class="updateForm">
+        <div class="user">
+          <label id="updateDate" for="updateDate">Date:</label>
+          <label id="updateTime"for="updateTime">Heure:</label>
+        </div>
+  
+          <label for="updateTaskName">Nom de la tâche:</label>
+          <input type="text" id="updateTaskName" name="updateTaskName" value="">
+  
+          <label id="updateInfo" for="updateInfo"></label>
+
+          <div class="maj">
+            <button type="button" id="updateSubmitButton">Mettre à jour</button>
+          </div>
+      </form>
+  </div>
+
     </main>
+
     <script
       src="https://kit.fontawesome.com/09d169dcaf.js"
       crossorigin="anonymous"
     ></script>
-    <script src="index.js"></script>
+    <script type='module' src="./js/index.js"></script>
   </body>
 </html>
